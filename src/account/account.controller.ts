@@ -11,6 +11,7 @@ import {
 import { AccountService } from './account.service';
 import { Account } from './entities/account.entity';
 import { CreateAccountDto } from './dto/create-account.dto';
+import { threadId } from 'worker_threads';
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
@@ -18,6 +19,11 @@ export class AccountController {
   @Get()
   getAll(): Account[] {
     return this.accountService.getAll();
+  }
+
+  @Get(`/:email`)
+  getEmail(@Param('email') accountEmail: string): Account {
+    return this.accountService.getEmail(accountEmail);
   }
 
   @Get(`/:id`)

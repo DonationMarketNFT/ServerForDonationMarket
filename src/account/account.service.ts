@@ -17,6 +17,14 @@ export class AccountService {
     return account;
   }
 
+  getEmail(email: string): Account {
+    const account = this.accounts.find((account) => account.email === email);
+    if (!account) {
+      throw new NotFoundException(`Account with ID ${email} not found.`);
+    }
+    return account;
+  }
+
   deleteOne(id: number) {
     this.getOne(id);
     this.accounts = this.accounts.filter((account) => account.id !== id);
