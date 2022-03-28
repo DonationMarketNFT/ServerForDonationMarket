@@ -12,32 +12,23 @@ import { AccountService } from './account.service';
 import { Account } from './entities/account.entity';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { threadId } from 'worker_threads';
+
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Get()
-  getAll(): Account[] {
-    return this.accountService.getAll();
+  findAll(): Promise<Account[]> {
+    return this.accountService.findAll();
   }
 
-  @Get(`/:email`)
-  getEmail(@Param('email') accountEmail: string): Account {
-    return this.accountService.getEmail(accountEmail);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: number): Account {
+  //   return this.accountService.findOne(id);
+  // }
 
-  @Get(`/:id`)
-  getOne(@Param('id') accountId: number): Account {
-    return this.accountService.getOne(accountId);
-  }
-
-  @Post()
-  create(@Body() accountData: CreateAccountDto) {
-    return this.accountService.create(accountData);
-  }
-
-  @Delete('/:id')
-  remove(@Param('id') accountId: number) {
-    return this.accountService.deleteOne(accountId);
+  @Post('/create_user')
+  create(@Body() account: CreateAccountDto) {
+    return this.accountService.create(account);
   }
 }

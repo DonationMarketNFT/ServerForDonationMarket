@@ -1,9 +1,11 @@
-import { IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsNotEmpty } from 'class-validator';
 
 export class CreateAccountDto {
   @IsString()
+  @IsNotEmpty()
   email: string;
 
   @IsString()
+  @IsNotEmpty()
   thirdParty: string;
 }

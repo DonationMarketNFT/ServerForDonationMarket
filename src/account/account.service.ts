@@ -1,39 +1,24 @@
 import { Injectable, NotFoundException, ShutdownSignal } from '@nestjs/common';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { Account } from './entities/account.entity';
+import { Repository, getConnection } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class AccountService {
-  private accounts: Account[] = [];
+  constructor(
+    @InjectRepository(Account)
+    private accountsRepository: Repository<Account>,
+  ) {}
 
-  getAll(): Account[] {
-    return this.accounts;
+  findAll(): Promise<Account[]> {
+    return this.accountsRepository.find();
   }
 
-  getOne(id: number): Account {
-    const account = this.accounts.find((account) => account.id === id);
-    if (!account) {
-      throw new NotFoundException(`Account with ID ${id} not found.`);
-    }
-    return account;
-  }
+  // findOne(id: number): Promise<Account> {
+  //   return this.accountsRepository.findOneBy(id);
+  // }
 
-  getEmail(email: string): Account {
-    const account = this.accounts.find((account) => account.email === email);
-    if (!account) {
-      throw new NotFoundException(`Account with ID ${email} not found.`);
-    }
-    return account;
-  }
-
-  deleteOne(id: number) {
-    this.getOne(id);
-    this.accounts = this.accounts.filter((account) => account.id !== id);
-  }
-
-  create(accountData: CreateAccountDto) {
-    this.accounts.push({
-      id: this.accounts.length + 1,
-      ...accountData,
-    });
+  async create(account: CreateAccountDto): Promise<void> {
+    await this.accountsRepository.save(account);
   }
 }
