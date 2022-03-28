@@ -7,6 +7,7 @@ import {
   Patch,
   Body,
   Query,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { Account } from './entities/account.entity';
@@ -17,15 +18,20 @@ import { threadId } from 'worker_threads';
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
-  @Get()
+  @Get('/user_all')
   findAll(): Promise<Account[]> {
     return this.accountService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: number): Account {
-  //   return this.accountService.findOne(id);
-  // }
+  @Get('/user')
+  findByUserOneEmailQuery(@Query('id') id: string): Promise<Account> {
+    return this.accountService.findByUserOne(id);
+  }
+
+  @Get('/user/:id')
+  findByUserOneEmailParam(@Param('id') id: string): Promise<Account> {
+    return this.accountService.findByUserOne(id);
+  }
 
   @Post('/create_user')
   create(@Body() account: CreateAccountDto) {

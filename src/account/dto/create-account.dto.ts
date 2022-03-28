@@ -8,4 +8,10 @@ export class CreateAccountDto {
   @IsString()
   @IsNotEmpty()
   thirdParty: string;
+
+  @IsString()
+  walletAddress: string;
+
+  @IsString()
+  walletKind: string;
 }

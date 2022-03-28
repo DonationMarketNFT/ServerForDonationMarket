@@ -14,9 +14,11 @@ export class AccountService {
     return this.accountsRepository.find();
   }
 
-  // findOne(id: number): Promise<Account> {
-  //   return this.accountsRepository.findOneBy(id);
-  // }
+  findByUserOne(id: string): Promise<Account> {
+    return this.accountsRepository.findOne({
+      where: [{ email: id }],
+    });
+  }
 
   async create(account: CreateAccountDto): Promise<void> {
     await this.accountsRepository.save(account);

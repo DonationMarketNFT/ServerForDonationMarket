@@ -9,4 +9,10 @@ export class Account {
 
   @Column()
   thirdParty: string;
+
+  @Column()
+  walletAddress: string;
+
+  @Column()
+  walletKind: string;
 }
