@@ -10,10 +10,8 @@ export class CreateAccountDto {
   thirdParty: string;
 
   @IsString()
-  @IsNotEmpty()
   walletAddress: string;
 
   @IsString()
-  @IsNotEmpty()
   walletKind: string;
 }
