@@ -1,9 +1,25 @@
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
 export class Campaign {
+  @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
   name: string;
-  descripion: string;
+
+  @Column()
+  description: string;
+
+  @Column()
+  campaignId: number;
+
+  @Column()
   targetAmount: number;
+
+  @Column()
   fundingStatus: boolean;
+
+  @Column()
   refundStatus: boolean;
-  fundingMember: string[];
 }

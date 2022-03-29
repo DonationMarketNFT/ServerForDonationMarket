@@ -1,32 +1,54 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCampaignDto } from './dto/create-campaign.dto';
 import { Campaign } from './entities/campaign.entity';
-
+import { Repository, getConnection } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateCampaignDto } from './dto/update-campaign.dto';
 @Injectable()
 export class CampaignService {
-  private campaigns: Campaign[] = [];
+  constructor(
+    @InjectRepository(Campaign)
+    private camapaignsRepository: Repository<Campaign>,
+  ) {}
 
-  getAll(): Campaign[] {
-    return this.campaigns;
+  getAll(): Promise<Campaign[]> {
+    return this.camapaignsRepository.find();
   }
 
-  getOne(id: number): Campaign {
-    const campaign = this.campaigns.find((campaign) => campaign.id == id);
-    if (!campaign) {
-      throw new NotFoundException(`Campaign with ID${id} not found.`);
-    }
-    return campaign;
-  }
-
-  deleteOne(id: number) {
-    this.getOne(id);
-    this.campaigns = this.campaigns.filter((campaign) => campaign.id != id);
-  }
-
-  create(campaignData: CreateCampaignDto) {
-    this.campaigns.push({
-      id: this.campaigns.length + 1,
-      ...campaignData,
+  findByCampaignOne(campaignId: number): Promise<Campaign> {
+    return this.camapaignsRepository.findOne({
+      where: [{ campaignId: campaignId }],
     });
+  }
+
+  async create(campaign: CreateCampaignDto): Promise<void> {
+    await this.camapaignsRepository.save(campaign);
+  }
+  //TODO: block same Campaign id creation
+
+  async deleteCampaign(id: string): Promise<boolean> {
+    const deleteCampaign = await this.camapaignsRepository.delete(id);
+
+    if (deleteCampaign.affected === 0) {
+      throw new NotFoundException('There is no campaign');
+    }
+    return true;
+  }
+
+  async setCampaign(
+    id: number,
+    updateCampaignDto: UpdateCampaignDto,
+  ): Promise<boolean> {
+    const { name, description, targetAmount, fundingStatus, refundStatus } =
+      updateCampaignDto;
+    const changeCampaign = await this.camapaignsRepository.update(
+      { id },
+      { name, description, targetAmount, fundingStatus, refundStatus },
+    );
+
+    if (changeCampaign.affected !== 1) {
+      throw new NotFoundException('There is no campaign');
+    }
+    return true;
   }
 }

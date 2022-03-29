@@ -11,27 +11,51 @@ import {
 import { CampaignService } from './campaign.service';
 import { Campaign } from './entities/campaign.entity';
 import { CreateCampaignDto } from './dto/create-campaign.dto';
-@Controller('campaign')
+import { UpdateAccountDto } from 'src/account/dto/update-account.dto';
+import { UpdateCampaignDto } from './dto/update-campaign.dto';
+@Controller('campaigns')
 export class CampaignController {
   constructor(private readonly campaignService: CampaignService) {}
 
-  @Get()
-  getAll(): Campaign[] {
+  @Get('/campaign_all')
+  getAll(): Promise<Campaign[]> {
     return this.campaignService.getAll();
   }
 
-  @Get(`/:id`)
-  getOne(@Param('id') campaignId: number): Campaign {
-    return this.campaignService.getOne(campaignId);
+  @Get('/camapaign')
+  findByCampaignIdQuery(
+    @Query('campaignId') campaignId: number,
+  ): Promise<Campaign> {
+    return this.campaignService.findByCampaignOne(campaignId);
   }
 
-  @Post()
-  create(@Body() campaignData: CreateCampaignDto) {
-    return this.campaignService.create(campaignData);
+  @Get('campaign/:campaignId')
+  findByCampaignIdParam(
+    @Param('campaignId') campaignId: number,
+  ): Promise<Campaign> {
+    return this.campaignService.findByCampaignOne(campaignId);
   }
 
-  @Delete(`/:id`)
-  remove(@Param('id') campaignId: number) {
-    return this.campaignService.deleteOne(campaignId);
+  @Post('/create_campaign')
+  create(@Body() campaign: CreateCampaignDto) {
+    return this.campaignService.create(campaign);
+  }
+
+  @Delete('campaign/delete')
+  deleteCampaignQuery(@Query('id') id: string): Promise<boolean> {
+    return this.campaignService.deleteCampaign(id);
+  }
+
+  @Delete('campaign/delete/:id')
+  deleteCampaignParam(@Param('id') id: string): Promise<boolean> {
+    return this.campaignService.deleteCampaign(id);
+  }
+
+  @Patch('campaign/:id')
+  setCampaign(
+    @Param('id') id: number,
+    @Body() updateCampaignDto: UpdateCampaignDto,
+  ): Promise<boolean> {
+    return this.campaignService.setCampaign(id, updateCampaignDto);
   }
 }

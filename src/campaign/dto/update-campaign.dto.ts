@@ -6,21 +6,14 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-export class CreateCampaignDto {
+export class UpdateCampaignDto {
   @IsString()
-  @IsNotEmpty()
   name: string;
 
   @IsString()
-  @IsNotEmpty()
   description: string;
 
   @IsNumber()
-  @IsNotEmpty()
-  campaignId: number;
-
-  @IsNumber()
-  @IsNotEmpty()
   targetAmount: number;
 
   @IsBoolean()
