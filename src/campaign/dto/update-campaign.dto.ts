@@ -16,6 +16,9 @@ export class UpdateCampaignDto {
   @IsNumber()
   targetAmount: number;
 
+  @IsNumber()
+  currentAmount: number;
+
   @IsBoolean()
   fundingStatus: boolean;
 

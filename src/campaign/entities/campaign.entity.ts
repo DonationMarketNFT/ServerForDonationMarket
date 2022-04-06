@@ -15,6 +15,9 @@ export class Campaign {
   campaignId: number;
 
   @Column()
+  currentAmount: number;
+
+  @Column()
   targetAmount: number;
 
   @Column()

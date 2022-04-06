@@ -39,11 +39,24 @@ export class CampaignService {
     id: number,
     updateCampaignDto: UpdateCampaignDto,
   ): Promise<boolean> {
-    const { name, description, targetAmount, fundingStatus, refundStatus } =
-      updateCampaignDto;
+    const {
+      name,
+      description,
+      targetAmount,
+      currentAmount,
+      fundingStatus,
+      refundStatus,
+    } = updateCampaignDto;
     const changeCampaign = await this.camapaignsRepository.update(
       { id },
-      { name, description, targetAmount, fundingStatus, refundStatus },
+      {
+        name,
+        description,
+        targetAmount,
+        currentAmount,
+        fundingStatus,
+        refundStatus,
+      },
     );
 
     if (changeCampaign.affected !== 1) {

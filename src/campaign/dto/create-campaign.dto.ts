@@ -23,6 +23,9 @@ export class CreateCampaignDto {
   @IsNotEmpty()
   targetAmount: number;
 
+  @IsNumber()
+  currentAmount: number;
+
   @IsBoolean()
   fundingStatus: boolean;
 
