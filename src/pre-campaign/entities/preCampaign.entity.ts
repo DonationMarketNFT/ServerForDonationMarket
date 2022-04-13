@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Campaign {
+export class PreCampaign {
   @PrimaryGeneratedColumn()
   id: number;
 

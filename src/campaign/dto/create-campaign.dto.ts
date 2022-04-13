@@ -17,10 +17,6 @@ export class CreateCampaignDto {
 
   @IsNumber()
   @IsNotEmpty()
-  campaignId: number;
-
-  @IsNumber()
-  @IsNotEmpty()
   targetAmount: number;
 
   @IsNumber()
@@ -31,4 +27,7 @@ export class CreateCampaignDto {
 
   @IsBoolean()
   refundStatus: boolean;
+
+  @IsString()
+  category: string;
 }

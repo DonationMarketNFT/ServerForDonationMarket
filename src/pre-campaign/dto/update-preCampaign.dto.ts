@@ -6,7 +6,7 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-export class UpdateCampaignDto {
+export class UpdatePreCampaignDto {
   @IsString()
   name: string;
 

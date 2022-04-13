@@ -17,7 +17,7 @@ export class CampaignService {
 
   findByCampaignOne(campaignId: number): Promise<Campaign> {
     return this.camapaignsRepository.findOne({
-      where: [{ campaignId: campaignId }],
+      where: [{ id: campaignId }],
     });
   }
 
@@ -46,6 +46,7 @@ export class CampaignService {
       currentAmount,
       fundingStatus,
       refundStatus,
+      category,
     } = updateCampaignDto;
     const changeCampaign = await this.camapaignsRepository.update(
       { id },
@@ -56,6 +57,7 @@ export class CampaignService {
         currentAmount,
         fundingStatus,
         refundStatus,
+        category,
       },
     );
 

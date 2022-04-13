@@ -11,7 +11,6 @@ import {
 import { CampaignService } from './campaign.service';
 import { Campaign } from './entities/campaign.entity';
 import { CreateCampaignDto } from './dto/create-campaign.dto';
-import { UpdateAccountDto } from 'src/account/dto/update-account.dto';
 import { UpdateCampaignDto } from './dto/update-campaign.dto';
 @Controller('campaigns')
 export class CampaignController {
