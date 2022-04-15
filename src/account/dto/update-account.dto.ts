@@ -6,4 +6,7 @@ export class UpdateAccountDto {
 
   @IsString()
   walletKind: string;
+
+  @IsString()
+  nickName: string;
 }

@@ -15,4 +15,7 @@ export class Account {
 
   @Column()
   walletKind: string;
+
+  @Column()
+  nickName: string;
 }

@@ -12,8 +12,9 @@ import { PreCampaignService } from './pre-campaign.service';
 import { PreCampaign } from './entities/preCampaign.entity';
 import { CreatePreCampaignDto } from './dto/create-preCampaign.dto';
 import { UpdatePreCampaignDto } from './dto/update-preCampaign.dto';
-
-@Controller('pre-campaign')
+import { UpdatePreCampaignFundingStatusDto } from './dto/update-preCampaignFundingStatus.dto';
+import { UpdatePreCampaignRefundStatusDto } from './dto/update-preCampaignRefundStatus.dto';
+@Controller('pre-campaigns')
 export class PreCampaignController {
   constructor(private readonly preCampaignService: PreCampaignService) {}
 
@@ -57,5 +58,27 @@ export class PreCampaignController {
     @Body() updatePreCampaignDto: UpdatePreCampaignDto,
   ): Promise<boolean> {
     return this.preCampaignService.setPreCampaign(id, updatePreCampaignDto);
+  }
+
+  @Patch('campaign/fundingstatus/:id')
+  updateCampaignFundingStatus(
+    @Param('id') id: number,
+    @Body() updatePreCampaignFundingStatus: UpdatePreCampaignFundingStatusDto,
+  ): Promise<boolean> {
+    return this.preCampaignService.updatePreCampaignFundingStatus(
+      id,
+      updatePreCampaignFundingStatus,
+    );
+  }
+
+  @Patch('campaign/refundstatus/:id')
+  updatePreCampaignRefundStatus(
+    @Param('id') id: number,
+    @Body() updatePreCampaignRefundStatus: UpdatePreCampaignRefundStatusDto,
+  ): Promise<boolean> {
+    return this.preCampaignService.updatePreCampaignRefundStatus(
+      id,
+      updatePreCampaignRefundStatus,
+    );
   }
 }

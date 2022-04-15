@@ -14,4 +14,7 @@ export class CreateAccountDto {
 
   @IsString()
   walletKind: string;
+
+  @IsString()
+  nickName: string;
 }

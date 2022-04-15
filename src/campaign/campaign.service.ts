@@ -4,6 +4,8 @@ import { Campaign } from './entities/campaign.entity';
 import { Repository, getConnection } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateCampaignDto } from './dto/update-campaign.dto';
+import { UpdateCampaignFundingStatusDto } from './dto/update-campaignFundingStatus.dto';
+import { UpdateCampaignRefundStatusDto } from './dto/update-campaignRefundStatus.dto';
 @Injectable()
 export class CampaignService {
   constructor(
@@ -61,6 +63,36 @@ export class CampaignService {
       },
     );
 
+    if (changeCampaign.affected !== 1) {
+      throw new NotFoundException('There is no campaign');
+    }
+    return true;
+  }
+
+  async updateCampaignFundingStatus(
+    id: number,
+    updateCampaignFundingStatus: UpdateCampaignFundingStatusDto,
+  ): Promise<boolean> {
+    const { fundingStatus } = updateCampaignFundingStatus;
+    const changeCampaign = await this.camapaignsRepository.update(
+      { id },
+      { fundingStatus },
+    );
+    if (changeCampaign.affected !== 1) {
+      throw new NotFoundException('There is no campaign');
+    }
+    return true;
+  }
+
+  async updateCampaignRefundStatus(
+    id: number,
+    updateCampaignRefundStatus: UpdateCampaignRefundStatusDto,
+  ): Promise<boolean> {
+    const { refundStatus } = updateCampaignRefundStatus;
+    const changeCampaign = await this.camapaignsRepository.update(
+      { id },
+      { refundStatus },
+    );
     if (changeCampaign.affected !== 1) {
       throw new NotFoundException('There is no campaign');
     }

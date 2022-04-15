@@ -39,10 +39,10 @@ export class AccountService {
     id: number,
     updateAccountDto: UpdateAccountDto,
   ): Promise<boolean> {
-    const { walletAddress, walletKind } = updateAccountDto;
+    const { walletAddress, walletKind, nickName } = updateAccountDto;
     const changeUser = await this.accountsRepository.update(
       { id },
-      { walletAddress, walletKind },
+      { walletAddress, walletKind, nickName },
     );
 
     if (changeUser.affected !== 1) {
