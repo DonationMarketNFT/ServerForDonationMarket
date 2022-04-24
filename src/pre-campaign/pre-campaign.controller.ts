@@ -23,6 +23,16 @@ export class PreCampaignController {
     return this.preCampaignService.getAll();
   }
 
+  @Get('/campaign/Onfunding')
+  findByFundingStatusTrue(): Promise<PreCampaign[]> {
+    return this.preCampaignService.findByFundingStatusTrue();
+  }
+
+  @Get('/campaign/OnRefund')
+  findByRefundStatusTrue(): Promise<PreCampaign[]> {
+    return this.preCampaignService.findByRefundStatueTure();
+  }
+
   @Get('/campaign')
   findByPreCampaignIdQuery(
     @Query('preCampaignId') preCampaignId: number,

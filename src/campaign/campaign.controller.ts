@@ -24,6 +24,16 @@ export class CampaignController {
     return this.campaignService.getAll();
   }
 
+  @Get('/campaign/Onfunding')
+  findByFundingStatusTrue(): Promise<Campaign[]> {
+    return this.campaignService.findByFundingStatusTrue();
+  }
+
+  @Get('/campaign/OnRefund')
+  findByRefundStatusTrue(): Promise<Campaign[]> {
+    return this.campaignService.findByRefundStatueTure();
+  }
+
   @Get('/camapaign')
   findByCampaignIdQuery(
     @Query('campaignId') campaignId: number,

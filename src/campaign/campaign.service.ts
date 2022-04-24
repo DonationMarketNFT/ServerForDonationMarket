@@ -23,6 +23,18 @@ export class CampaignService {
     });
   }
 
+  findByFundingStatusTrue(): Promise<Campaign[]> {
+    return this.camapaignsRepository.find({
+      where: [{ fundingStatus: true }],
+    });
+  }
+
+  findByRefundStatueTure(): Promise<Campaign[]> {
+    return this.camapaignsRepository.find({
+      where: [{ refundStatus: true }],
+    });
+  }
+
   async create(campaign: CreateCampaignDto): Promise<void> {
     await this.camapaignsRepository.save(campaign);
   }

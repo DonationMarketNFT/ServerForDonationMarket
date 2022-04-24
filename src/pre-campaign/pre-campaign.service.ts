@@ -24,6 +24,18 @@ export class PreCampaignService {
     });
   }
 
+  findByFundingStatusTrue(): Promise<PreCampaign[]> {
+    return this.preCampaignsRepository.find({
+      where: [{ fundingStatus: true }],
+    });
+  }
+
+  findByRefundStatueTure(): Promise<PreCampaign[]> {
+    return this.preCampaignsRepository.find({
+      where: [{ refundStatus: true }],
+    });
+  }
+
   async create(preCampaign: CreatePreCampaignDto): Promise<void> {
     await this.preCampaignsRepository.save(preCampaign);
   }
