@@ -18,4 +18,7 @@ export class Account {
 
   @Column()
   nickName: string;
+
+  @Column()
+  accessToken: string;
 }

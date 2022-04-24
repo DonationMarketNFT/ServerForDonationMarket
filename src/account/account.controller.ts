@@ -15,6 +15,9 @@ import { Account } from './entities/account.entity';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 import { threadId } from 'worker_threads';
+import { UpdateAccountAccessTokenDto } from './dto/update-accoutAccessToken.dto';
+import { UpdateAccountWalletDto } from './dto/update-account-wallet.dto';
+import { UpdateAccountNickNameDto } from './dto/update-account-nickname.dto';
 
 @Controller('account')
 export class AccountController {
@@ -56,5 +59,32 @@ export class AccountController {
     @Body() updateAccountDto: UpdateAccountDto,
   ): Promise<boolean> {
     return this.accountService.setUser(id, updateAccountDto);
+  }
+
+  @Patch('user/updateaccesstoken/:id')
+  updateAccessToken(
+    @Param('id') id: number,
+    @Body() updateAccountAccessTokenDto: UpdateAccountAccessTokenDto,
+  ): Promise<boolean> {
+    return this.accountService.updateAccessToken(
+      id,
+      updateAccountAccessTokenDto,
+    );
+  }
+
+  @Patch('user/updatewallet/:id')
+  setWallet(
+    @Param('id') id: number,
+    @Body() updateAccountWalletDto: UpdateAccountWalletDto,
+  ): Promise<boolean> {
+    return this.accountService.setWallet(id, updateAccountWalletDto);
+  }
+
+  @Patch('user/updatenickname/:id')
+  setNickName(
+    @Param('id') id: number,
+    @Body() updateAccountNickNameDto: UpdateAccountNickNameDto,
+  ): Promise<boolean> {
+    return this.accountService.setNickName(id, updateAccountNickNameDto);
   }
 }
