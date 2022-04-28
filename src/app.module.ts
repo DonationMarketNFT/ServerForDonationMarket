@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Account } from './account/entities/account.entity';
 import { Campaign } from './campaign/entities/campaign.entity';
 import { PreCampaign } from './pre-campaign/entities/preCampaign.entity';
+import { AccountWcModule } from './account-wc/account-wc.module';
+import { AccountWc } from './account-wc/entities/accountWc.entity';
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { PreCampaign } from './pre-campaign/entities/preCampaign.entity';
       username: 'donationmarketnft',
       password: 'ekdns1130!',
       database: 'donation_market',
-      entities: [Account, Campaign, PreCampaign],
+      entities: [Account, Campaign, PreCampaign, AccountWc],
       sychronize: true,
     }),
     AccountModule,
     CampaignModule,
     PreCampaignModule,
+    AccountWcModule,
   ],
   controllers: [AppController],
   providers: [AppService],
