@@ -25,4 +25,7 @@ export class Campaign {
 
   @Column()
   category: string;
+
+  @Column()
+  creatorAddress: string;
 }

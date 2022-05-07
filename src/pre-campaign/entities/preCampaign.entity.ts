@@ -25,4 +25,7 @@ export class PreCampaign {
 
   @Column()
   category: string;
+
+  @Column()
+  creatorAddress: string;
 }

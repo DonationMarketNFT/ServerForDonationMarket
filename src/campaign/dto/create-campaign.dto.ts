@@ -30,4 +30,7 @@ export class CreateCampaignDto {
 
   @IsString()
   category: string;
+
+  @IsString()
+  creatorAddress: string;
 }

@@ -30,4 +30,7 @@ export class CreatePreCampaignDto {
 
   @IsString()
   category: string;
+
+  @IsString()
+  creatorAddress: string;
 }
