@@ -28,4 +28,7 @@ export class PreCampaign {
 
   @Column()
   creatorAddress: string;
+
+  @Column()
+  minFundingAmount: number;
 }

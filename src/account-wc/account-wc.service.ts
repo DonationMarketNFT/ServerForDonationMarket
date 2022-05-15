@@ -29,7 +29,7 @@ export class AccountWcService {
   }
 
   async create(account: CreateAccountWcDto): Promise<void> {
-    await this.accountWcsRepository.save(account);
+    const createUser = await this.accountWcsRepository.save(account);
   }
 
   async deleteUser(id: string): Promise<boolean> {

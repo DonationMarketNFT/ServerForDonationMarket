@@ -28,4 +28,7 @@ export class Campaign {
 
   @Column()
   creatorAddress: string;
+
+  @Column()
+  minFundingAmount: number;
 }

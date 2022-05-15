@@ -33,4 +33,8 @@ export class CreatePreCampaignDto {
 
   @IsString()
   creatorAddress: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  minFundingAmount: number;
 }
