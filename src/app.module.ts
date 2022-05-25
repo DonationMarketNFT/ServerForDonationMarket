@@ -10,6 +10,9 @@ import { Campaign } from './campaign/entities/campaign.entity';
 import { PreCampaign } from './pre-campaign/entities/preCampaign.entity';
 import { AccountWcModule } from './account-wc/account-wc.module';
 import { AccountWc } from './account-wc/entities/accountWc.entity';
+import { UploadController } from './upload/upload.controller';
+import { UploadService } from './upload/upload.service';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -30,8 +33,9 @@ import { AccountWc } from './account-wc/entities/accountWc.entity';
     CampaignModule,
     PreCampaignModule,
     AccountWcModule,
+    ImageModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UploadController],
+  providers: [AppService, UploadService],
 })
 export class AppModule {}
