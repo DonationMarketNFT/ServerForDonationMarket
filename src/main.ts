@@ -48,7 +48,7 @@ pinata
     console.log('authentication failed');
     console.log(err);
   });
-
+/*
 pinata
   .pinFileToIPFS(readableStreamForFile)
   .then((result) => {
@@ -59,5 +59,6 @@ pinata
     //handle error here
     console.log(err);
   });
+  */
 
 bootstrap();
