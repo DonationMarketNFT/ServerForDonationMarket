@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Post,
   UploadedFiles,
@@ -18,7 +19,7 @@ export class ImageController {
 
   @Post()
   @UseInterceptors(
-    FilesInterceptor('images', 3, {
+    FilesInterceptor('images', 200, {
       storage: multerS3({
         s3: s3,
         bucket: process.env.AWS_S3_BUCKET_NAME,
@@ -33,7 +34,10 @@ export class ImageController {
       }),
     }),
   )
-  async uploadImage(@UploadedFiles() files: Express.Multer.File) {
-    return this.imageService.uploadImage(files);
+  async uploadImage(
+    @UploadedFiles() files: Express.Multer.File,
+    @Body() CampaignInfo: string,
+  ) {
+    return this.imageService.uploadImage(files, CampaignInfo);
   }
 }

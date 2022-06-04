@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
+import { CampaignService } from '../campaign/campaign.service';
+import { Campaign } from '../campaign/entities/campaign.entity';
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION,
 });
-
-const nftName = 'jogakbo'; // name of nft
-const description = 'test for jogakbo'; // description of nft
-const totalNum = 5; // amount of nfts
 
 const s3 = new AWS.S3();
 
@@ -21,8 +19,12 @@ const pinata = pinataSDK(
 
 @Injectable()
 export class ImageService {
-  async uploadImage(files) {
+  async uploadImage(files, CampaignInfo) {
     console.log(files);
+    console.log(CampaignInfo);
+
+    const nftName = CampaignInfo.CampaignName; // name of nft
+    const description = CampaignInfo.CampaignDescription; // description of nft
 
     let i = 0;
     files.map((image) => {
@@ -46,7 +48,6 @@ export class ImageService {
           //handle error here
           console.log(err);
         });
-
       i++;
     });
     console.log('complete!');
