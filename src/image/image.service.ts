@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 import * as AWS from 'aws-sdk';
 import { CampaignService } from '../campaign/campaign.service';
 import { Campaign } from '../campaign/entities/campaign.entity';
+import { NftService } from '../nft/nft.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Nft } from '../nft/entities/nft.entity';
+import { Repository, getConnection } from 'typeorm';
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -19,21 +23,29 @@ const pinata = pinataSDK(
 
 @Injectable()
 export class ImageService {
+  constructor(
+    @InjectRepository(Nft)
+    private nftRepository: Repository<Nft>,
+  ) {}
+
   async uploadImage(files, CampaignInfo) {
     console.log(files);
+    console.log(files.length);
     console.log(CampaignInfo);
+    const cnt = files.length;
 
     const nftName = CampaignInfo.CampaignName; // name of nft
     const description = CampaignInfo.CampaignDescription; // description of nft
+    const campaignId = CampaignInfo.CampaignId; // campaign id
+    const fs = require('fs');
 
     let i = 0;
     files.map((image) => {
       console.log(image.location);
 
       const json = `{"name":"${nftName} #${i}","description":"${description}","image":"${image.location}","attributes":[{"trait_type": "Unknown","value": "Unknown"}]}`;
-      const fs = require('fs');
       fs.writeFile(`json/${i}.json`, json, 'utf8', (e) => e);
-
+      /*
       const readableStreamForFile = fs.createReadStream(
         `/Users/kimdawoon/donation-market/json/${i}.json`,
       );
@@ -43,13 +55,54 @@ export class ImageService {
         .then((result) => {
           //handle results here
           console.log(result);
+          console.log(result.IpfsHash);
+
+          const tokenUri = `https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`;
+
+          this.nftRepository.save({
+            campaignName: nftName,
+            campaignId: campaignId,
+            nftUri: tokenUri,
+            nftNum: i,
+            used: false,
+          });
         })
         .catch((err) => {
           //handle error here
           console.log(err);
         });
+        */
       i++;
     });
+
+    for (let j = 0; j < cnt; j++) {
+      const readableStreamForFile = fs.createReadStream(
+        `/Users/kimdawoon/donation-market/json/${j}.json`,
+      );
+
+      pinata
+        .pinFileToIPFS(readableStreamForFile)
+        .then((result) => {
+          //handle results here
+          console.log(result);
+          console.log(result.IpfsHash);
+
+          const tokenUri = `https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`;
+
+          this.nftRepository.save({
+            campaignName: nftName,
+            campaignId: campaignId,
+            nftUri: tokenUri,
+            nftNum: j,
+            used: false,
+          });
+        })
+        .catch((err) => {
+          //handle error here
+          console.log(err);
+        });
+    }
+
     console.log('complete!');
     return 'SUCESS';
   }
