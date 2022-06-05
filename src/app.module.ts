@@ -13,6 +13,8 @@ import { AccountWc } from './account-wc/entities/accountWc.entity';
 import { UploadController } from './upload/upload.controller';
 import { UploadService } from './upload/upload.service';
 import { ImageModule } from './image/image.module';
+import { NftModule } from './nft/nft.module';
+import { Nft } from './nft/entities/nft.entity';
 
 @Module({
   imports: [
@@ -26,7 +28,7 @@ import { ImageModule } from './image/image.module';
       username: 'donationmarketnft',
       password: 'ekdns1130!',
       database: 'donation_market',
-      entities: [Account, Campaign, PreCampaign, AccountWc],
+      entities: [Account, Campaign, PreCampaign, AccountWc, Nft],
       sychronize: true,
     }),
     AccountModule,
@@ -34,6 +36,7 @@ import { ImageModule } from './image/image.module';
     PreCampaignModule,
     AccountWcModule,
     ImageModule,
+    NftModule,
   ],
   controllers: [AppController, UploadController],
   providers: [AppService, UploadService],
