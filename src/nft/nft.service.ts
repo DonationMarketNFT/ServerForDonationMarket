@@ -18,7 +18,7 @@ export class NftService {
 
   findByCampaignId(_camapaignId: number): Promise<Nft[]> {
     return this.nftRepository.find({
-      where: [{ campaignId: _camapaignId }],
+      where: [{ campaignId: _camapaignId, used: false }],
     });
   }
 
