@@ -76,9 +76,7 @@ export class ImageService {
     });
 
     for (let j = 0; j < cnt; j++) {
-      const readableStreamForFile = fs.createReadStream(
-        `/Users/kimdawoon/donation-market/json/${j}.json`,
-      );
+      const readableStreamForFile = fs.createReadStream(`json/${j}.json`);
 
       pinata
         .pinFileToIPFS(readableStreamForFile)

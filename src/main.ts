@@ -15,9 +15,6 @@ const pinata = pinataSDK(
 );
 
 const fs = require('fs');
-const readableStreamForFile = fs.createReadStream(
-  '/Users/kimdawoon/donation-market/test/testImg/cozySpace _1.png',
-);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
