@@ -1,0 +1,1 @@
+{"version":3,"file":"uuidRandom.js","sourceRoot":"","sources":["../../src/lib/uuidRandom.ts"],"names":[],"mappings":";;AAAA,+BAA+B;AAC/B,+BAAkC;AAElC,kBAAe,CAAC,IAAI,EAAU,EAAE;IAC9B,MAAM,QAAQ,GAAW,GAAG,IAAA,SAAI,GAAE,GAAG,IAAA,cAAO,EAAC,IAAI,CAAC,YAAY,CAAC,EAAE,CAAC;IAClE,OAAO,QAAQ,CAAC;AAClB,CAAC,CAAC"}
