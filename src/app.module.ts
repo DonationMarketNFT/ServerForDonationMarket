@@ -15,6 +15,7 @@ import { UploadService } from './upload/upload.service';
 import { ImageModule } from './image/image.module';
 import { NftModule } from './nft/nft.module';
 import { Nft } from './nft/entities/nft.entity';
+import { CampaignImageModule } from './campaign-image/campaign-image.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { Nft } from './nft/entities/nft.entity';
     AccountWcModule,
     ImageModule,
     NftModule,
+    CampaignImageModule,
   ],
   controllers: [AppController, UploadController],
   providers: [AppService, UploadService],
